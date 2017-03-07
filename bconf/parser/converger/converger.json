@@ -1,0 +1,28 @@
+{
+	"product1": {
+		"subsystem1": {
+			"module1": {
+				"host": [
+					"10.0.0.1",
+					"10.0.0.2"
+				],
+				"instance": [
+					"10.0.0.1",
+					"10.0.0.2"
+				],
+				"module_conf": "bastmodule.json"
+			},
+			"module2": {
+				...
+			},
+			"subsystem_conf": "bastsubsystem.json"
+		},
+		"subsystem2": {
+			...
+		},
+		"product_conf": "bastproduct.json"
+	},
+	"product2": {
+		...
+	}
+}
