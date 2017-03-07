@@ -1,1 +1,126 @@
 
+{
+	"relation": {
+		"upstream": "module0,module3",
+		"downstream": "module2,moddule4"	
+	},
+	"source": {
+		"log": [
+			{
+				"name": "log1",
+				"log_path": "/home/work/module1/log/moduler1.log",
+				"interval": "60",
+				"item": [
+					{
+						"name_prefix": "module1_item1",
+						"match": "string=(-?\d+\.\d+|-?\d+)"
+					},
+					{
+						"name_prefix": "moduler1_item2",
+						"match": ".*ERROR.*"
+					}
+				]
+			},
+			{
+				"name": "log2",
+				"log_path": "/home/work/module2/log/moduler2.log",
+				"interval": "60",
+				"item": [
+					{
+						"name_prefix": "module2_item1",
+						"match": "string=(-?\d+\.\d+|-?\d+)"
+					},
+					{
+						"name_prefix": "moduler2_item2",
+						"match": ".*ERROR.*"
+					}
+				]
+			}
+		],
+		"script": [
+			{
+				"name": "script1",
+				"target_path": "/home/bast/scripts/script1.sh",
+				"interval": "60"
+			},
+			{
+				"name": "script2",
+				"target_path": "/home/bast/scripts/script2.sh",
+				"interval": "60"
+			}
+		],
+		"process": [
+			{
+				"name": "process1",
+				"cmd": "/home/bast/bin/module1 -d",
+				"interval": "60"
+			},
+			{
+				"name": "process2",
+				"cmd": "/home/bast/bin/module2 -d",
+				"interval": "60"
+			}
+		],
+		"request": [
+			{
+				"name": "request1",
+				"interval": "60",
+				"protocol": "tcp|http",
+				"port": "8080",
+				"monitor_point": "point1,point2|local|all",
+				"req_type": "port|text|binary|http",
+				"req_content": "text|binary",
+				"res_check": "contain('ok')|regex('ok.*')",
+				"req_header": {
+					"Accept": "text/html",
+					"Accept-Encoding": "gzip",
+					"Accept-Language": "zh-CN",
+					"Connection": "keep-alive",
+					"Cookie": "Cookie1=test",
+					"Host": "www.bast.com",
+					"User-Agent": "Mozilla/5.0"
+				}
+			}
+		],
+		"derive": [
+			{
+				"name": "derive_item",
+				"expression": "item1/item2+item3"
+			}
+		],
+		"aggregation": [
+			{
+				"items": "item1_cnt,item2_pv",
+				"types": "max,avg,min"
+			}
+		]
+	},
+	
+	"rule": [
+		{
+			"name": "rule1",
+			"condition": "cpu_idle>50 && delta(itemname)",
+			"filter": "3/5",
+			"disable_time": ["220000-060000",""],
+			"merge_window": "300,600",
+			"level": "notice|warning|major|critical",
+			"callback": "echo ok",
+			"alert": "alert1"
+		}
+	],
+	
+	"alert": [
+		{
+			"name":"alert1",
+	        "max_alert_times":2,
+	        "remind_interval_second":300,
+	        "mail":"test@",
+	        "sms":"test@",
+			"im": "123454",
+	        "level1_upgrade_interval":1800,
+	        "level1_upgrade_sms":"123",
+	        "level2_upgrade_interval":3600,
+	        "level2_upgrade_sms":"2323",
+		}
+	]
+}
